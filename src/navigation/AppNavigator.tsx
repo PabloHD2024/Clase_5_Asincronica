@@ -1,6 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
+import { View, Text } from 'react-native';
 import { RootTabParamList } from '../types/navigation';
 import HomeScreen from '../screens/HomeScreen';
 import SearchScreen from '../screens/SearchScreen';
@@ -28,11 +29,30 @@ const AppNavigator: React.FC = () => {
         },
         tabBarActiveTintColor: '#2563eb',
         tabBarInactiveTintColor: '#6b7280',
+        tabBarLabel: ({ focused, color }) => {
+          if (route.name === 'Perfil') {
+            return <Text style={{ color, fontSize: 12 }}>Mi cuenta</Text>;
+          }
+          return null; // Usar el label por defecto
+        },
       })}
     >
       <Tab.Screen name="Inicio" component={HomeScreen} />
-      <Tab.Screen name="Buscar" component={SearchScreen} />
-      <Tab.Screen name="Perfil" component={ProfileScreen} />
+      <Tab.Screen 
+        name="Buscar" 
+        component={SearchScreen}
+        options={{
+          tabBarBadge: 5,
+          tabBarBadgeStyle: { backgroundColor: '#eb2525' }
+        }}
+      />
+      <Tab.Screen 
+        name="Perfil" 
+        component={ProfileScreen}
+        options={{
+          tabBarLabel: 'Mi cuenta'
+        }}
+      />
     </Tab.Navigator>
   );
 };
